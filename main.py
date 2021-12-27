@@ -163,7 +163,7 @@ def storeRetrivePass(dir):
             pswdId integer PRIMARY KEY AUTOINCREMENT NOT NULL,
             site text,
             mail text,
-            pswd text            
+            pswd text
         )
         """)
         try:
@@ -324,6 +324,7 @@ def storeRetrivePass(dir):
                     int(inp[4:])
                 except:
                     print(Fore.RED+Back.WHITE+" Please enter an integer as an argument "+Style.RESET_ALL)  
+                    continue
                 for i in conn.execute("select * from pswdData where pswdId = "+str(inp[4:])):
                     copy(decryptText(i[3],sha256Hash(compKey+"\b"+mstrPswd)))
                 print(Fore.GREEN+"Password copied for site/app name "+decryptText(i[1],sha256Hash(compKey+"\b"+mstrPswd)),end="")
@@ -393,6 +394,8 @@ def storeRetrivePass(dir):
                         (*) see usrn <username name> - shows all entries corresponding to the username/email id
                 -> dlt   - deletes an entry with the corresponding id, use it as follows:
                         (*) dlt <query id>
+                -> cpy   - copy the password from entry with the corresponding id, use it as follows:
+                        (*) cpy <query id>
                 -> updt  - updates an entry with the corresponding id, use it as follows:
                         (*) updt <query id>
                 -> cmp   - change master password
